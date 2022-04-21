@@ -4,17 +4,17 @@ import axios from 'axios'
 
 export const LoginForm = () => {
 
-    function auth (values) {
+    const auth = async (values) => {
         console.log('Auth Values: ', values)
-        // try {
-        //     await axios.post('/auth', {values})
-        //         .then(res => {
-        //             console.log('Authentication Response: ', res.data)
-        //         })
-        //         .catch(err => console.log('Error authenticating credentials.'))
-        // } catch (err) {
-        //     console.log('Error submitting to API')
-        // }
+        try {
+            await axios.post('http://localhost:8080/api/auth', {values})
+                .then(res => {
+                    console.log('Authentication Response: ', res.data)
+                })
+                .catch(err => console.log('Error authenticating credentials: ', err))
+        } catch (err) { 
+            console.log('Error submitting to API')
+        }
     }
 
     return (

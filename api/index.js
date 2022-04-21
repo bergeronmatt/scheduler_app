@@ -4,10 +4,6 @@ require('dotenv').config()
 // import the server module
 const app = require('./server/server.js')
 
-// set up and require cross-origin policy ath
-// start of the api
-const cors = require('cors')
-app.use(cors())
 
 // set up port object
 const port = process.env.PORT || 8080;
