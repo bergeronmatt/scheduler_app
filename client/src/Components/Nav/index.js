@@ -16,7 +16,7 @@ export default function Nav() {
       <BrowserRouter>
 
         <Link to='/'>Home</Link>
-        <Link to='login'>Login</Link>
+        <Link to='/login'>Login</Link>
         <Link to='/calendar'>Calendar</Link>
 
         <Routes>
