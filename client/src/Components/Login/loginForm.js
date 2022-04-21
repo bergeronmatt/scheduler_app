@@ -1,7 +1,21 @@
 import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
+import axios from 'axios'
 
 export const LoginForm = () => {
+
+    function auth (values) {
+        console.log('Auth Values: ', values)
+        // try {
+        //     await axios.post('/auth', {values})
+        //         .then(res => {
+        //             console.log('Authentication Response: ', res.data)
+        //         })
+        //         .catch(err => console.log('Error authenticating credentials.'))
+        // } catch (err) {
+        //     console.log('Error submitting to API')
+        // }
+    }
 
     return (
     <div className='loginForm'>
@@ -22,8 +36,10 @@ export const LoginForm = () => {
                 return errors
             }}
             onSubmit={(values, {setSubmitting}) => {
+                auth(values)
+                console.log('auth check')
                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
+                    alert("Login Successful");
                     setSubmitting(false);
                 }, 400)
             }}
