@@ -1,5 +1,5 @@
 import React from 'react'
-// import axios from 'axios';
+import LoginForm from './loginForm'
 
 export default function Login() {
 
@@ -25,8 +25,9 @@ export default function Login() {
     //         })
     // }
 
-
     return (
-    <div>Login</div>
+    <div>
+      <LoginForm />
+    </div>
   )
 }
