@@ -4,12 +4,12 @@ import axios from 'axios'
 
 export const LoginForm = () => {
 
-    const auth = async (values) => {
-        console.log('Auth Values: ', values)
+    const auth = async (email, password) => {
         try {
-            await axios.post('http://localhost:8080/api/auth', {values})
+            await axios.post('http://localhost:8080/api/auth', {email: email, password: password})
                 .then(res => {
-                    console.log('Authentication Response: ', res.data)
+                    const {token} = res.data
+                    localStorage.setItem('auth', token)
                 })
                 .catch(err => console.log('Error authenticating credentials: ', err))
         } catch (err) { 
@@ -36,8 +36,9 @@ export const LoginForm = () => {
                 return errors
             }}
             onSubmit={(values, {setSubmitting}) => {
-                auth(values)
-                console.log('auth check')
+                let email = values.email;
+                let password = values.password;
+                auth(email, password)
                 setTimeout(() => {
                     alert("Login Successful");
                     setSubmitting(false);
