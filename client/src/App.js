@@ -1,4 +1,5 @@
-import logo from './logo.svg';
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
 import './css/index.css';
 import Nav from './Components/Nav'
 
