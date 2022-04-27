@@ -2,14 +2,15 @@ import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import axios from 'axios'
 
-export const LoginForm = () => {
+export const LoginForm = (props) => {
+
 
     const auth = async (email, password) => {
         try {
             await axios.post('http://localhost:8080/api/auth', {email: email, password: password})
                 .then(res => {
-                    const {token} = res.data
-                    localStorage.setItem('auth', token)
+                    const {token} = res.data;
+                    localStorage.setItem('auth', token);
                 })
                 .catch(err => console.log('Error authenticating credentials: ', err))
         } catch (err) { 
@@ -42,6 +43,7 @@ export const LoginForm = () => {
                 setTimeout(() => {
                     alert("Login Successful");
                     setSubmitting(false);
+                    window.location.reload();
                 }, 400)
             }}
         >

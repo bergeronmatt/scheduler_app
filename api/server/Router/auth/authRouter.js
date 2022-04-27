@@ -33,5 +33,34 @@ Router.post('/auth', (req, res) => {
     }
 })
 
+// middleware to handle Authentication Headers
+const authenticateJWT = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if(!authHeader){
+        res.status(401).json({message: 'Invalid authentication.'})
+        return
+    }
+    try {
+        jwt.verify(authHeader, process.env.JWT_SECRET, (err) => {
+            if(err){
+                res.status(401).json({message: 'Invalid authorization token.'})
+                return;
+            }
+            console.log('Valid token');
+            next();
+        })
+    } catch(err) {
+        console.log('Could not authenticate the token')
+    }
+}
+
+Router.get('/validate', authenticateJWT,(req, res) => {
+    
+    console.log('Request Headers: ', req.headers)
+
+    res.sendStatus(200)
+})
+
+
 // export router module
 module.exports = Router

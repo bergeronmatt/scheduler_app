@@ -1,31 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import LoginForm from './loginForm'
+import { useNavigate } from 'react-router-dom'
 
-export default function Login() {
+export default function Login(props) {
 
-    // const [user, setUser] = useState({
-    //     username: '',
-    //     password: ''
-    // })
+  const navigate = useNavigate();
 
-    // const handleChange = (e) => {
-    //     e.preventDefault()
+  useEffect(() => {
+    if(props.allowed === true) {
+      navigate('/calendar')
+    }
+  },[props.allowed, navigate])
 
-    //     setUser({
-    //         ...user,
-    //         [e.target.name]: e.target.value
-    //     });
-    // }
-
-    // const handleClick = (e) => {
-    //     e.preventDefault()
-    //     axios.post(process.env.REACT_APP_LOGIN, {username: user.username, password: user.password})
-    //         .then(res => {
-    //             console.log('response: ', res.data)
-    //         })
-    // }
-
-    return (
+  return (
     <div>
       <LoginForm />
     </div>
