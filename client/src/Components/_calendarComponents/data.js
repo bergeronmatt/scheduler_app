@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const data = [
     {
       text: 'Website Re-Design Plan',
@@ -67,5 +69,3 @@ export const data = [
       endDate: new Date('2022-04-30T21:00:00.000Z'),
     },
   ];
-  
-  export const appointmentData = []
