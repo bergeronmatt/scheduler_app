@@ -35,5 +35,15 @@ Router.get('/list', authenticateJWT, (req, res) => {
         })
 })
 
+Router.post('/add_run', authenticateJWT, (req, res) => {
+    const runData = req.body;
+    try {
+        Runs.addAppointment(runData)
+        res.sendStatus(200);
+    } catch (err) {
+        res.status(500).json({message: 'Error inserting data into database'});
+    }
+})
+
 // Export Router
 module.exports = Router

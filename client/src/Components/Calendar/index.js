@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Scheduler from 'devextreme-react/scheduler';
 
-import { data } from '../_calendarComponents/data';
+// import { data } from '../_calendarComponents/data';
 import axios from 'axios';
 
 const currentDate = Date.now();
@@ -23,8 +23,14 @@ export default function MyCalendar() {
 
   const addAppointment = (e) => {
     console.log(e.appointmentData);
-  }
 
+    const {allDay, description, endDate, startDate, text} = e.appointmentData;
+
+    console.log({allDay, description, endDate, startDate, text})
+
+    axios.post('http://localhost:8080/api/runs/add_run', {})
+
+  }
 
   useEffect(() => {
     getData()
