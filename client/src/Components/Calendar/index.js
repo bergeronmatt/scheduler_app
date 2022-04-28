@@ -28,7 +28,20 @@ export default function MyCalendar() {
 
     console.log({allDay, description, endDate, startDate, text})
 
-    axios.post('http://localhost:8080/api/runs/add_run', {})
+    axios.post('http://localhost:8080/api/runs/add_run', {allDay, description, endDate, startDate, text}, { headers: {authorization: token}})
+
+  }
+
+  const deleteAppointment = (e) => {
+    console.log(e.appointmentData);
+
+    const token = localStorage.getItem('auth')
+
+    const {id} = e.appointmentData;
+
+    console.log('Deleted id: ', id)
+
+    axios.delete(`http://localhost:8080/api/runs/${id}`, {headers: {authorization: token}})
 
   }
 
@@ -47,6 +60,7 @@ export default function MyCalendar() {
     startDayHour={9}
     firstDayOfWeek={1}
     onAppointmentAdded={addAppointment}
+    onAppointmentDeleted={deleteAppointment}
     />
   )
 }

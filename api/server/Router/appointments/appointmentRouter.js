@@ -45,5 +45,15 @@ Router.post('/add_run', authenticateJWT, (req, res) => {
     }
 })
 
+Router.delete('/:id', authenticateJWT, (req, res) => {
+    const {id} = req.params;
+
+    Runs.deleteRun(id)
+        .then(deleted => {
+            res.status(200).json({message: `Post id ${id} successfully deleted.`})
+        })
+
+})
+
 // Export Router
 module.exports = Router

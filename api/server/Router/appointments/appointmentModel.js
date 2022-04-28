@@ -12,9 +12,15 @@ function getAppointments() {
 
 function addAppointment(runData) {
     db('appointment').insert(runData, 'id')
-        .then(([id]) => {
-            return findRun(id)
+        .then(run => {
+            return findRun(run)
         })
+}
+
+function deleteRun(id) {
+    return db('appointment')
+        .where('id', id)
+        .del()
 }
 
 function findRun(id) {
@@ -23,5 +29,6 @@ function findRun(id) {
 
 module.exports = {
     getAppointments,
-    addAppointment
+    addAppointment,
+    deleteRun
 }
