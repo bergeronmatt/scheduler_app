@@ -3,10 +3,14 @@ import Scheduler from 'devextreme-react/scheduler';
 
 import { data } from '../_calendarComponents/data';
 
-const currentDate = new Date(2021, 3, 29);
+const currentDate = Date.now();
 const views = ['day', 'week', 'workWeek', 'month'];
 
 export default function MyCalendar() {
+
+  const addAppointment = (e) => {
+    console.log(e.appointmentData);
+  }
 
   return (
     <Scheduler
@@ -16,6 +20,8 @@ export default function MyCalendar() {
     defaultCurrentView="week"
     defaultCurrentDate={currentDate}
     height={600}
-    startDayHour={9} />
+    startDayHour={9} 
+    onAppointmentAdded={addAppointment}
+    />
   )
 }
