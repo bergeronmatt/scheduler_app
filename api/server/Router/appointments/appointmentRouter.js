@@ -28,6 +28,7 @@ const authenticateJWT = (req, res, next) => {
     }
 }
 
+// Get the entire list of currently Scheduled Runs
 Router.get('/list', authenticateJWT, (req, res) => {
     Runs.getAppointments()
         .then(runs => {
@@ -35,6 +36,7 @@ Router.get('/list', authenticateJWT, (req, res) => {
         })
 })
 
+// Add new Run to the database
 Router.post('/add_run', authenticateJWT, (req, res) => {
     const runData = req.body;
     try {
@@ -45,6 +47,22 @@ Router.post('/add_run', authenticateJWT, (req, res) => {
     }
 })
 
+// Update/Edit a Scheduled Run
+Router.put('/update/:id', authenticateJWT, (req, res) => {
+
+    const {id} = req.params;
+    const runData = req.body;
+
+    try {
+        Runs.updateAppointment(id, runData)
+        res.sendStatus(200)
+    } catch(err) {
+        res.status(400).json({message: `Could not update: ${err}`})
+    }
+    
+})
+
+// Delete a Scheduled Run
 Router.delete('/:id', authenticateJWT, (req, res) => {
     const {id} = req.params;
 

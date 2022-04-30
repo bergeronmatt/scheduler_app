@@ -15,11 +15,13 @@ export default function MyCalendar() {
 
   const [runData, setRunData] = useState([])
 
-  const getData = () => {axios.get('http://localhost:8080/api/runs/list', {headers: {authorization: token}})
+  const getData = async () => {
+    await axios.get('http://localhost:8080/api/runs/list', {headers: {authorization: token}})
     .then(res => {
       console.log('Runs Respose: ', res.data.Runs)
       setRunData(res.data.Runs)
-    })}
+    })
+  }
 
   const addAppointment = (e) => {
     console.log(e.appointmentData);
@@ -29,6 +31,13 @@ export default function MyCalendar() {
     console.log({allDay, description, endDate, startDate, text})
 
     axios.post('http://localhost:8080/api/runs/add_run', {allDay, description, endDate, startDate, text}, { headers: {authorization: token}})
+
+  }
+
+  const updateAppointment = (e) => {
+    console.log('Update: ', e.appointmentData)
+    const {id, allDay, description, endDate, startDate, text} = e.appointmentData;
+    axios.put(`http://localhost:8080/api/runs/update/${id}`, {allDay, description, endDate, startDate, text}, { headers: {authorization: token}})
 
   }
 
@@ -44,6 +53,8 @@ export default function MyCalendar() {
     axios.delete(`http://localhost:8080/api/runs/${id}`, {headers: {authorization: token}})
 
   }
+
+
 
   useEffect(() => {
     getData()
@@ -61,6 +72,7 @@ export default function MyCalendar() {
     firstDayOfWeek={1}
     onAppointmentAdded={addAppointment}
     onAppointmentDeleted={deleteAppointment}
+    onAppointmentUpdated={updateAppointment}
     />
   )
 }

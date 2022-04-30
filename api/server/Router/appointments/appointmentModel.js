@@ -17,6 +17,16 @@ function addAppointment(runData) {
         })
 }
 
+function updateAppointment(id, runData) {
+
+    db('appointment')
+        .where('id', id)
+            .update(runData)
+            .then(() => {
+                return findRun(id)
+            })
+}
+
 function deleteRun(id) {
     return db('appointment')
         .where('id', id)
@@ -30,5 +40,6 @@ function findRun(id) {
 module.exports = {
     getAppointments,
     addAppointment,
+    updateAppointment,
     deleteRun
 }
