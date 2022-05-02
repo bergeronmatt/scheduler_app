@@ -5,7 +5,7 @@ import Scheduler from 'devextreme-react/scheduler';
 import axios from 'axios';
 
 const currentDate = Date.now();
-const views = ['day', 'week', 'workWeek', 'month'];
+const views = ['day', 'week', 'month'];
 
 export default function MyCalendar() {
   
