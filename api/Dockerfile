@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 8080
 
 # CMD [ "npm", "run", "dev"]
-CMD ["DEBUG=express:*", "node", "index.js"]
+CMD ["npm", "run", "start"]

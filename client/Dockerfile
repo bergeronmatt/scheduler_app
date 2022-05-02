@@ -4,11 +4,13 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm install 
+RUN npm install -g serve
+
+RUN npm install -f
 
 COPY . .
 
 EXPOSE 3000
 
 # CMD [ "npm", "start"]
-CMD ["serve", "-s", "build"]
+CMD ["npm", "run", "serve"]
