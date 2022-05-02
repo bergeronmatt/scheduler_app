@@ -12,9 +12,9 @@ export const LoginForm = (props) => {
                     const {token} = res.data;
                     localStorage.setItem('auth', token);
                 })
-                .catch(err => console.log('Error authenticating credentials: ', err))
+                .catch(err => console.error(err))
         } catch (err) { 
-            console.log('Error submitting to API')
+            console.error()
         }
     }
 

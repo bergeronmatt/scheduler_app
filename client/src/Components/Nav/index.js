@@ -7,7 +7,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link,
   Navigate,
   Outlet
 } from 'react-router-dom'
@@ -26,12 +25,12 @@ export default function Nav() {
   function verifyUser(token) {
     axios.get('http://localhost:8080/api/validate', {headers: {Authorization: token}})
       .then(res => {
-        console.log('Validate User Response: ', res)
+        // console.log('Validate User Response: ', res)
         if(res.status !== 200) {
-          console.log('Unauthorized Access');
+          console.error();
           return;
         }
-        console.log('Access Granted')
+        // console.log('Access Granted')
         setAllowed(true)
       })
   }
@@ -44,10 +43,6 @@ export default function Nav() {
   return (
     <div className='wrapper'>
       <BrowserRouter>
-{/* 
-        <Link to='/'>Login</Link>
-        <Link to='/calendar'>Calendar</Link> */}
-
         <Routes>
           <Route path='/' element={<Login allowed={allowed} />}/>
           <Route path='/calendar' element={

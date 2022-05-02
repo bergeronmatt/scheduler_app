@@ -9,22 +9,26 @@ const Router = express.Router();
 // authentication middelware
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    console.log('token: ', authHeader)
+    // console.log('token: ', authHeader)
     if(!authHeader){
-        res.status(401).json({message: 'Invalid authentication.'})
+        // res.status(401).json({message: 'Invalid authentication.'})
+        res.sendStatus(401)
         return
     }
     try {
         jwt.verify(authHeader, process.env.JWT_SECRET, (err) => {
             if(err){
-                res.status(401).json({message: 'Invalid authorization token.'})
+                // res.status(401).json({message: 'Invalid authorization token.'})
+                res.sendStatus(401)
                 return;
             }
-            console.log('Valid token');
+            // console.log('Valid token');
             next();
         })
     } catch(err) {
-        console.log('Could not authenticate the token')
+        // console.log('Could not authenticate the token')
+        console.error(err)
+        return
     }
 }
 
@@ -43,7 +47,8 @@ Router.post('/add_run', authenticateJWT, (req, res) => {
         Runs.addAppointment(runData)
         res.sendStatus(200);
     } catch (err) {
-        res.status(500).json({message: 'Error inserting data into database'});
+        // res.status(500).json({message: 'Error inserting data into database'});
+        res.sendStatus(500)
     }
 })
 
@@ -57,7 +62,8 @@ Router.put('/update/:id', authenticateJWT, (req, res) => {
         Runs.updateAppointment(id, runData)
         res.sendStatus(200)
     } catch(err) {
-        res.status(400).json({message: `Could not update: ${err}`})
+        // res.status(400).json({message: `Could not update: ${err}`})
+        res.sendStatus(400)
     }
     
 })
@@ -68,7 +74,8 @@ Router.delete('/:id', authenticateJWT, (req, res) => {
 
     Runs.deleteRun(id)
         .then(deleted => {
-            res.status(200).json({message: `Post id ${id} successfully deleted.`})
+            // res.status(200).json({message: `Post id ${id} successfully deleted.`})
+            res.sendStatus(200)
         })
 
 })
