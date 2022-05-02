@@ -44,9 +44,9 @@ export default function Nav() {
   return (
     <div className='wrapper'>
       <BrowserRouter>
-
+{/* 
         <Link to='/'>Login</Link>
-        <Link to='/calendar'>Calendar</Link>
+        <Link to='/calendar'>Calendar</Link> */}
 
         <Routes>
           <Route path='/' element={<Login allowed={allowed} />}/>
@@ -55,7 +55,9 @@ export default function Nav() {
               redirectPath="/"
               isAllowed={allowed}
             >
-              <Calendar />
+              <div style={{width: "90%", margin: 'auto'}}>
+                <Calendar />
+              </div>
             </ProtectedRoute>
           } />
         </Routes>

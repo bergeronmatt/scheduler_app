@@ -19,5 +19,5 @@
    */
   exports.down = function(knex) {
     return knex.schema
-      .dropTableIfExists("appointment")
+      .dropTableIfExists("user")
   };

@@ -20,10 +20,13 @@ server.get('/api', (req, res) => {
 })
 
 // import Router Modules
-const authRouter = require('./Router/auth/authRouter')
+const authRouter = require('./Router/auth/authRouter');
+const runsRouter = require('./Router/appointments/appointmentRouter');
 
 // endpoints
 server.use('/api', authRouter);
+server.use('/api/runs', runsRouter);
+
 
 // export the server to index.js
 module.exports = server;
