@@ -2,7 +2,7 @@ import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
 import './css/index.css';
 import Nav from './Components/Nav'
-import logo from "./img/mge-logo.png"
+import logo from "./img/MGE-Logo.svg"
 
 function App() {
   return (

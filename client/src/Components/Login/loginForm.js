@@ -50,14 +50,35 @@ export const LoginForm = (props) => {
             {({isSubmitting}) => (
                 <Form className='form' >
                     <div>
-                        <Field type='email' name='email' />
-                        <ErrorMessage name='email' component='div' />
+                        <Field 
+                            type='email' 
+                            name='email' 
+                            placeholder="Email"
+                            style={{
+                                width:'20%',
+                                margin:".2%"
+                            }}
+                        />
+                        <ErrorMessage name='email' component='div'/>
                     </div>
                     <div>
-                        <Field type='password' name='password' />
+                        <Field 
+                            type='password' 
+                            name='password' 
+                            placeholder='Password'
+                            style={{
+                                width:'20%',
+                                margin:".2%"
+                            }} 
+                        />
                         <ErrorMessage name='password' component='div' />
                     </div>
-                    <button type='submit' disabled={isSubmitting} >Submit</button>
+                    <button type='submit' disabled={isSubmitting} 
+                        style={{
+                            width: '20.5%',
+                            margin:".2%"
+                        }}
+                    >Submit</button>
                 </Form>
             )}
         </Formik>
