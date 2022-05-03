@@ -40,11 +40,17 @@ module.exports = {
     },
   
     production: {
-      client: "postgresql",
-      connection: process.env.DATABASE_URL,
+      client: "sqlite3",
+      // due to small size of this DB, this will be stored in a local db file via sqlite3
+      // see ReadMe file for more details
+      connection: {
+        filename: "./data/data.db3",
+      },
       pool: {
-        min: 2,
-        max: 10,
+        afterCreate: (conn, done) => {
+          // runs after a connection is made to the sqlite engine
+          conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
+        },
       },
       migrations: {
         directory: "./data/migrations",

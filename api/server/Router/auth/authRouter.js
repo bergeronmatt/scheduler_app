@@ -63,7 +63,11 @@ Router.get('/validate', authenticateJWT,(req, res) => {
     
     // console.log('Request Headers: ', req.headers)
 
-    res.sendStatus(200)
+    try {
+        res.sendStatus(200)
+    } catch (err) {
+        res.sendStatus(400)
+    }
 })
 
 

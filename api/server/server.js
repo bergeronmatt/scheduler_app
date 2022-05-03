@@ -18,8 +18,8 @@ server.use(express.json())
 
 // base route api endpoint
 server.get('/api', (req, res) => {
-    // res.status(200).json({message: 'The api is up and running'})
-    res.sendStatus(200)
+    res.status(200).json({message: `The API is running and the test env var is ${process.env.JWT_SECRET2}`})
+    // res.sendStatus(200)
 })
 
 // import Router Modules

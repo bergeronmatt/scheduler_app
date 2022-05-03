@@ -61,18 +61,20 @@ export default function MyCalendar() {
   }, [])
 
   return (
-    <Scheduler
-    timeZone="America/Los_Angeles"
-    dataSource={runData}
-    views={views}
-    defaultCurrentView="week"
-    defaultCurrentDate={currentDate}
-    height={600}
-    startDayHour={9}
-    firstDayOfWeek={1}
-    onAppointmentAdded={addAppointment}
-    onAppointmentDeleted={deleteAppointment}
-    onAppointmentUpdated={updateAppointment}
-    />
+    <div>
+      <Scheduler
+      timeZone="America/Los_Angeles"
+      dataSource={runData}
+      views={views}
+      defaultCurrentView="week"
+      defaultCurrentDate={currentDate}
+      height={600}
+      startDayHour={9}
+      firstDayOfWeek={1}
+      onAppointmentAdded={addAppointment}
+      onAppointmentDeleted={deleteAppointment}
+      onAppointmentUpdated={updateAppointment}
+      />
+    </div>
   )
 }
