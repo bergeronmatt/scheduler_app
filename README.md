@@ -50,7 +50,7 @@ Once you have your local repository initialized from the main branch, you will n
 1. Make sure you're in the root directory of the procject
 2. Run the following command in your terminal <i>git checkout -b feature/<branch-name></i>
     - please refer to ComResource's branch and naming nomenclature for more detail on naming your branch
-    - <a href="https://comresource.atlassian.net/wiki/spaces/CAD/pages/851869735/Source+Control+Branching">
+    - <a href="https://comresource.atlassian.net/wiki/spaces/CAD/pages/851869735/Source+Control+Branching">ComResource Source Control</a>
 3. Once you've run the above command, your local repository will automatically be set to your branch
 4. Add your current branch to be committed with <i>git add .</i>
 5. Commit your initial branch <i>git commit -m "This is a comment section to explain your changes"</i>
