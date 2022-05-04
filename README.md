@@ -64,10 +64,26 @@ Once you have your local repository initialized from the main branch, you will n
 Once you have initialized your database and installed all the necessary packages in on the client and server sides, you can now run your
 project locally
 
+**For Development**
+
 1. cd into ./api and then run the following in your terminal
     - <i>npm run dev</i>
 2. in a separate terminal window, cd into ./client and run the following
     - <i> npm start </i>
+
+**For Production**
+
+Before deploying any updates to production, you must update the production build folder on the Client Side, otherwise
+Docker will build using a previous production build. To update your production build, delete the build folder from the
+client directory, and run the following command
+    - <i>npm run build</i>
+
+This will update the client side of the app and your development changes will take effect on the next docker compose up.
+
+To run the production build locally to check for any issues, use the following command
+    - <i>npm run serve</i> 
+
+In either of the above cases, these will be your local ports:
 
 Your server and api should be running locally on http://localhost:8080
 Your client will be running on http://localhost:3000
@@ -78,6 +94,7 @@ http requests from the client side will not be allowed.
 **Need to change cors policy for when front end is in production**
 
 ## Source Control
+Please refer to ComResource's proceduure on source control through the above link
 
 **Database and Data**
-Due to the small nature and over simplicity 
+Due to the small scope of this project, persisting the database beyond 
