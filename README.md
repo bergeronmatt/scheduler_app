@@ -1,45 +1,100 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Getting Started
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
+## Overview
+**Cleanup feature has yet to be implemented**
+This is a simple Scheduler Application for Mark Gray Enterprises. The sole purpose of this application is to replace a traditional
+whiteboard with dry erase marker with a terminal or television screen. The client is tired of having their scheduled runs for their
+drivers rubbed off as people move by, so they only require a scheduling system that shows runs. At this point in time, there is no 
+need to need to save data, as they keep a record of their drives on their own, so data and space will automatically be cleaned up 
+after a set period of time.
 
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+**Embedded Database File**
+Due to the simplicity of the client's needs,t he production database client will be sqlite3: a simple, lightweight embedded sqlite 
+database. This embedded file is located at <i>./api/data/data.db3</i> and is included in the gitignore files and dockerignore files.
+See setting up your database.
 
----
+This file will be embedded automatically at runtime via docker compose
 
-## Edit a file
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+## Cloning the Repository
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+1. To create your own branch, click the "Clone" button near the top right corner of the Repository page.
+2. Copy and paste the generated line of code, and run it in the root file of your local directory.
+3. You will need to cd into both the Client and Server directories and install the necessary packages
+    - cd into ./client and run <i>npm i</i>
+    - cd into ./server and run <i>npm i </i>
 
----
+## Setting up your local database
 
-## Create a file
+Follow these steps to initialize a new database for your local environment.
 
-Next, you’ll add a new file to this repository.
+1. Run the following command to generate your local environment's database:
+    - <i>touch api/data/data.db3</i>
+2. cd into the ./api folder
+3. Run the following command to create your database tables
+    - <i>npx knex migrate:latest</i>
+4. Run the following command to seed your database with a seed appointment and default user
+    - <i>npx knex seed:run</i>
 
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
+In the event during development you should find an issue with your database file, you can either delete
+the file, and follow the above steps again, or you can run simply run the following command to rollback
+your database to a blank database
+    - <i>npx knex migrate:rollback</i>
 
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
+When you have corrected your issues, you can then simply repeat steps 3 and 4 from above to reinitialize
+your database with the seed data.
+## Creating a Branch
 
----
+Once you have your local repository initialized from the main branch, you will need to set up a branch for your feature
 
-## Clone a repository
+1. Make sure you're in the root directory of the procject
+2. Run the following command in your terminal <i>git checkout -b feature/<branch-name></i>
+    - please refer to ComResource's branch and naming nomenclature for more detail on naming your branch
+    - <a href="https://comresource.atlassian.net/wiki/spaces/CAD/pages/851869735/Source+Control+Branching">ComResource Source Control</a>
+3. Once you've run the above command, your local repository will automatically be set to your branch
+4. Add your current branch to be committed with <i>git add .</i>
+5. Commit your initial branch <i>git commit -m "This is a comment section to explain your changes"</i>
+6. Set your upstream with <i>git push --set-upstream origin main <branch> </i> where branch is your current feature from above 
+    - a shortcut to this is to type in <i>git push</i> and an error message will pop up in your terminal with the full command line you will need
+    - copy and paste it into your terminal and run
+7. Your upstream will now be set, and you will only need to run <i>git push</i> after you add and commit your changes from steps 4 and 5
 
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
+## Running your project locally
 
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
+Once you have initialized your database and installed all the necessary packages in on the client and server sides, you can now run your
+project locally
 
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+**For Development**
+
+1. cd into ./api and then run the following in your terminal
+    - <i>npm run dev</i>
+2. in a separate terminal window, cd into ./client and run the following
+    - <i> npm start </i>
+
+**For Production**
+
+Before deploying any updates to production, you must update the production build folder on the Client Side, otherwise
+Docker will build using a previous production build. To update your production build, delete the build folder from the
+client directory, and run the following command
+    - <i>npm run build</i>
+
+This will update the client side of the app and your development changes will take effect on the next docker compose up.
+
+To run the production build locally to check for any issues, use the following command
+    - <i>npm run serve</i> 
+
+In either of the above cases, these will be your local ports:
+
+Your server and api should be running locally on http://localhost:8080
+Your client will be running on http://localhost:3000
+
+Be sure not to change the client's url to anyother port, as this will interfere with the cors policy set on the backend, and
+http requests from the client side will not be allowed.
+**Need to change where the front end is calling for when the api is running in production**
+**Need to change cors policy for when front end is in production**
+
+## Source Control
+Please refer to ComResource's proceduure on source control through the above link
+
+**Database and Data**
+Due to the small scope of this project, persisting the database beyond 

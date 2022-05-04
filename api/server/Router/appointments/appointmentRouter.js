@@ -9,14 +9,34 @@ const Router = express.Router();
 // authentication middelware
 const authenticateJWT = (req, res, next) => {
     const authHeader = req.headers.authorization;
+<<<<<<< HEAD
+    // console.log('token: ', authHeader)
+    if(!authHeader){
+        // res.status(401).json({message: 'Invalid authentication.'})
+        res.sendStatus(401)
+=======
     console.log('token: ', authHeader)
     if(!authHeader){
         res.status(401).json({message: 'Invalid authentication.'})
+>>>>>>> 626ccf7a38847a1b05024cb13c1d7b7a42d0ca12
         return
     }
     try {
         jwt.verify(authHeader, process.env.JWT_SECRET, (err) => {
             if(err){
+<<<<<<< HEAD
+                // res.status(401).json({message: 'Invalid authorization token.'})
+                res.sendStatus(401)
+                return;
+            }
+            // console.log('Valid token');
+            next();
+        })
+    } catch(err) {
+        // console.log('Could not authenticate the token')
+        console.error(err)
+        return
+=======
                 res.status(401).json({message: 'Invalid authorization token.'})
                 return;
             }
@@ -25,6 +45,7 @@ const authenticateJWT = (req, res, next) => {
         })
     } catch(err) {
         console.log('Could not authenticate the token')
+>>>>>>> 626ccf7a38847a1b05024cb13c1d7b7a42d0ca12
     }
 }
 
@@ -43,7 +64,12 @@ Router.post('/add_run', authenticateJWT, (req, res) => {
         Runs.addAppointment(runData)
         res.sendStatus(200);
     } catch (err) {
+<<<<<<< HEAD
+        // res.status(500).json({message: 'Error inserting data into database'});
+        res.sendStatus(500)
+=======
         res.status(500).json({message: 'Error inserting data into database'});
+>>>>>>> 626ccf7a38847a1b05024cb13c1d7b7a42d0ca12
     }
 })
 
@@ -57,7 +83,12 @@ Router.put('/update/:id', authenticateJWT, (req, res) => {
         Runs.updateAppointment(id, runData)
         res.sendStatus(200)
     } catch(err) {
+<<<<<<< HEAD
+        // res.status(400).json({message: `Could not update: ${err}`})
+        res.sendStatus(400)
+=======
         res.status(400).json({message: `Could not update: ${err}`})
+>>>>>>> 626ccf7a38847a1b05024cb13c1d7b7a42d0ca12
     }
     
 })
@@ -68,7 +99,12 @@ Router.delete('/:id', authenticateJWT, (req, res) => {
 
     Runs.deleteRun(id)
         .then(deleted => {
+<<<<<<< HEAD
+            // res.status(200).json({message: `Post id ${id} successfully deleted.`})
+            res.sendStatus(200)
+=======
             res.status(200).json({message: `Post id ${id} successfully deleted.`})
+>>>>>>> 626ccf7a38847a1b05024cb13c1d7b7a42d0ca12
         })
 
 })

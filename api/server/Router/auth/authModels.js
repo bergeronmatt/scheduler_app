@@ -5,16 +5,18 @@ const jwt = require('jsonwebtoken')
 function authUser(email, password, userEmail, userPass) {
     try {
         if(email !== userEmail) {
-            console.log('Error, emails do not match records.')
+            // console.log('Error, emails do not match records.')
             return;
         } else if (!bcrypt.compareSync(password, userPass)) {
-            console.log('Error, incorrect password')
+            // console.log('Error, incorrect password')
             return;
         }
     } catch (err) {
-        console.log('Error authenticating user')
+        // console.log('Error authenticating user')
+        console.error(err)
+        return
     }
-    console.log('User Authenticated');
+    // console.log('User Authenticated');
 }
 
 function getUser(email) {
@@ -24,15 +26,19 @@ function getUser(email) {
 
 function validateUser(req, res, next) {
     if(req.headers.authorization === undefined) {
-        res.status(401).json({message: "Unauthorized"})
+        // res.status(401).json({message: "Unauthorized"})
+        res.sendStatus(401)
+        return
     } else {
         try {
             if(!jwt.verify(req.headers.authorization, process.env.JWT_SECRET)) {
-                res.status(401).json({message: 'Unauthorized Authentication Token'})
+                // res.status(401).json({message: 'Unauthorized Authentication Token'})
+                res.sendStatus(401)
                 return
             }
         } catch (err) {
-            console.log('Error authenticating token: ', err)
+            // console.log('Error authenticating token: ', err)
+            console.error(err)
         }
     }
     next()

@@ -5,50 +5,50 @@ import Scheduler from 'devextreme-react/scheduler';
 import axios from 'axios';
 
 const currentDate = Date.now();
-const views = ['day', 'week', 'workWeek', 'month'];
+const views = ['day', 'week', 'month'];
 
 export default function MyCalendar() {
   
   const token = localStorage.getItem('auth')
 
-  console.log('token: ', token)
+  // console.log('token: ', token)
 
   const [runData, setRunData] = useState([])
 
   const getData = async () => {
     await axios.get('http://localhost:8080/api/runs/list', {headers: {authorization: token}})
     .then(res => {
-      console.log('Runs Respose: ', res.data.Runs)
+      // console.log('Runs Respose: ', res.data.Runs)
       setRunData(res.data.Runs)
     })
   }
 
   const addAppointment = (e) => {
-    console.log(e.appointmentData);
+    // console.log(e.appointmentData);
 
     const {allDay, description, endDate, startDate, text} = e.appointmentData;
 
-    console.log({allDay, description, endDate, startDate, text})
+    // console.log({allDay, description, endDate, startDate, text})
 
     axios.post('http://localhost:8080/api/runs/add_run', {allDay, description, endDate, startDate, text}, { headers: {authorization: token}})
 
   }
 
   const updateAppointment = (e) => {
-    console.log('Update: ', e.appointmentData)
+    // console.log('Update: ', e.appointmentData)
     const {id, allDay, description, endDate, startDate, text} = e.appointmentData;
     axios.put(`http://localhost:8080/api/runs/update/${id}`, {allDay, description, endDate, startDate, text}, { headers: {authorization: token}})
 
   }
 
   const deleteAppointment = (e) => {
-    console.log(e.appointmentData);
+    // console.log(e.appointmentData);
 
     const token = localStorage.getItem('auth')
 
     const {id} = e.appointmentData;
 
-    console.log('Deleted id: ', id)
+    // console.log('Deleted id: ', id)
 
     axios.delete(`http://localhost:8080/api/runs/${id}`, {headers: {authorization: token}})
 
@@ -61,18 +61,20 @@ export default function MyCalendar() {
   }, [])
 
   return (
-    <Scheduler
-    timeZone="America/Los_Angeles"
-    dataSource={runData}
-    views={views}
-    defaultCurrentView="week"
-    defaultCurrentDate={currentDate}
-    height={600}
-    startDayHour={9}
-    firstDayOfWeek={1}
-    onAppointmentAdded={addAppointment}
-    onAppointmentDeleted={deleteAppointment}
-    onAppointmentUpdated={updateAppointment}
-    />
+    <div>
+      <Scheduler
+      timeZone="America/Los_Angeles"
+      dataSource={runData}
+      views={views}
+      defaultCurrentView="week"
+      defaultCurrentDate={currentDate}
+      height={600}
+      startDayHour={9}
+      firstDayOfWeek={1}
+      onAppointmentAdded={addAppointment}
+      onAppointmentDeleted={deleteAppointment}
+      onAppointmentUpdated={updateAppointment}
+      />      
+    </div>
   )
 }
