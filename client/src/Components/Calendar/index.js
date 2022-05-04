@@ -74,7 +74,7 @@ export default function MyCalendar() {
       onAppointmentAdded={addAppointment}
       onAppointmentDeleted={deleteAppointment}
       onAppointmentUpdated={updateAppointment}
-      />
+      />      
     </div>
   )
 }
