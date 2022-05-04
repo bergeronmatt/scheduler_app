@@ -1,9 +1,20 @@
 import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 export const LoginForm = (props) => {
 
+    const loginAlert = async () => {
+        await Swal.fire({
+        title: 'Login Successful!',
+        text: 'You will be redirected momentarily, or click the ok button',
+        timer: 5000,
+        icon: 'success',
+    }).then(() =>{
+        window.location.reload()
+    })
+}
 
     const auth = async (email, password) => {
         try {
@@ -40,11 +51,9 @@ export const LoginForm = (props) => {
                 let email = values.email;
                 let password = values.password;
                 auth(email, password)
-                setTimeout(() => {
-                    alert("Login Successful");
-                    setSubmitting(false);
-                    window.location.reload();
-                }, 400)
+                loginAlert()
+                setSubmitting(false);
+                // window.location.reload();
             }}
         >
             {({isSubmitting}) => (
