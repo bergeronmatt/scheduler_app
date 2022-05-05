@@ -2,6 +2,7 @@
 
 ## Overview
 **Cleanup feature has yet to be implemented**
+
 This is a simple Scheduler Application for Mark Gray Enterprises. The sole purpose of this application is to replace a traditional
 whiteboard with dry erase marker with a terminal or television screen. The client is tired of having their scheduled runs for their
 drivers rubbed off as people move by, so they only require a scheduling system that shows runs. At this point in time, there is no 
@@ -9,6 +10,7 @@ need to need to save data, as they keep a record of their drives on their own, s
 after a set period of time.
 
 **Embedded Database File**
+
 Due to the simplicity of the client's needs,t he production database client will be sqlite3: a simple, lightweight embedded sqlite 
 database. This embedded file is located at <i>./api/data/data.db3</i> and is included in the gitignore files and dockerignore files.
 See setting up your database.
@@ -74,13 +76,14 @@ project locally
 **For Production**
 
 Before deploying any updates to production, you must update the production build folder on the Client Side, otherwise
-Docker will build using a previous production build. To update your production build, delete the build folder from the
-client directory, and run the following command
+Docker will build using a previous production build. 
+
+1. To update your production build, delete the build folder from the client directory, and run the following command
     - <i>npm run build</i>
 
 This will update the client side of the app and your development changes will take effect on the next docker compose up.
 
-To run the production build locally to check for any issues, use the following command
+2. To run the production build locally to check for any issues, use the following command
     - <i>npm run serve</i> 
 
 In either of the above cases, these will be your local ports:
@@ -90,11 +93,98 @@ Your client will be running on http://localhost:3000
 
 Be sure not to change the client's url to anyother port, as this will interfere with the cors policy set on the backend, and
 http requests from the client side will not be allowed.
+
 **Need to change where the front end is calling for when the api is running in production**
+
 **Need to change cors policy for when front end is in production**
 
 ## Source Control
 Please refer to ComResource's proceduure on source control through the above link
 
 **Database and Data**
-Due to the small scope of this project, persisting the database beyond 
+
+Due to the small scope of this project, persisting the database beyond the initial seed state isn't necessary nor time and
+cost efficient at this point. Please see the Setting Up Your Local Database section for details on database management.
+
+In the future, should the client's needs change, a more structured database, either through MySQL or PostgreSQL may be
+implemented.
+
+## Scheduler App
+
+The scheduler application is from the following packages, <i>devextreme</i> and <i>devextreme-react</i>
+
+For the source documentation <a href="https://js.devexpress.com/Demos/WidgetsGallery/Demo/Scheduler/Overview/React/Light/">see here.</a>
+
+A brief overview of the features relevant to the project
+
+1. The scheduler must receive the data from the database to render the appointments. This is fed into the Scheduler.datasource attribute
+
+2. The views attritube is an array of strings that dictate the views available to the user, such as if you were to only have "Week" in the views array, the user would only be able to see the week view and not the Day or Month schedules.
+
+3. The onAppointmentAdded, onAppointmentDeleted, and onAppointmentUpdated attributes hold the add, delete, and update methods, respectively. These will need to be set to their respective attributes in order to make changes on the front end persist into the next session.
+
+4. To change the default view, change the defaultCurrentView to a string value of day, week, work week, month, etc.
+
+##  API
+
+**POST /api/auth**
+
+The client will send their login information to the backend and receive an auth token. That token will be set into their localstorage for authentication to validate them to be able to access the calendar, as well as make calls to the database. This auth token will be needed to receive 
+
+Schema:
+
+{
+
+    "email": "info@comresource.com",
+
+    "password": "NewPass1234"
+
+}
+
+**GET /api/validate**
+
+There are no parameters or schema for this api call. This call automatically checks to see if the client is signed in and has a valid Authorization Token set in the request headers. Should the request be invalid, then the client will be redirected to the login page until a valid login is sent, and a valid auth token is generated.
+
+**GET /api/runs/list**
+
+There are no parameters needed for this endpoint. This will return a list of all the appointments stored in the database. This call can only be made by an authorized request with an Authorization Header set with the token.
+
+**POST /api/runs/add_run**
+
+When an appointment is added, it will call this endpoint to add the appointment to the database list. The appointment will need a string for the title set within the text attribute, a string for the description attribute, a boolean value for allDay, and timestamps for the startDate and endDate attributes. The startDate and endDate attributes must be set to millisecond values, otherwise they will not render within the scheduler. 
+
+{
+  
+    "text": "Insert Test",
+
+    "startDate": 1651161600000,
+  
+    "endDate": 1651163400000,
+  
+    "description": "This is a test appointment to be inserted into the database",
+  
+    "allDay": false
+
+}
+
+**PUT /api/runs/update/:id**
+
+When an appointment is updated, whether it is by editing the text, description, or other values, then the update api will be called. The attributes needed to update the appointment are the same as the appointment POST api schema. The update will also need the appointment id as a uri paramater to push the updates through.
+
+{
+  
+    "text": "Insert Test",
+
+    "startDate": 1651161600000,
+  
+    "endDate": 1651163400000,
+  
+    "description": "This is a test appointment to be inserted into the database",
+  
+    "allDay": false
+
+}
+
+**DELETE /api/runs/id**
+
+There are no schemas or objects required for this call. The call to this endpoint requires an Authorization Header to take into effect, and the post id for the request parameters. This api endpoint will be called when the user selects the delete icon when selecting an appointment, but not moving or editing the appointment.

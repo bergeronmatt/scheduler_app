@@ -5,18 +5,20 @@ import Scheduler from 'devextreme-react/scheduler';
 import axios from 'axios';
 
 const currentDate = Date.now();
-
 const views = ['day', 'week', 'month'];
 
 export default function MyCalendar() {
   
   const token = localStorage.getItem('auth')
 
+  // console.log('token: ', token)
+
   const [runData, setRunData] = useState([])
 
   const getData = async () => {
     await axios.get('http://localhost:8080/api/runs/list', {headers: {authorization: token}})
     .then(res => {
+      // console.log('Runs Respose: ', res.data.Runs)
       setRunData(res.data.Runs)
     })
   }
@@ -33,21 +35,20 @@ export default function MyCalendar() {
   }
 
   const updateAppointment = (e) => {
-
     // console.log('Update: ', e.appointmentData)
-
     const {id, allDay, description, endDate, startDate, text} = e.appointmentData;
     axios.put(`http://localhost:8080/api/runs/update/${id}`, {allDay, description, endDate, startDate, text}, { headers: {authorization: token}})
 
   }
 
   const deleteAppointment = (e) => {
-
     // console.log(e.appointmentData);
 
     const token = localStorage.getItem('auth')
 
     const {id} = e.appointmentData;
+
+    // console.log('Deleted id: ', id)
 
     axios.delete(`http://localhost:8080/api/runs/${id}`, {headers: {authorization: token}})
 
