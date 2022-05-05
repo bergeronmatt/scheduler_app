@@ -5,9 +5,9 @@ export const axiosWithAuth = () => {
     const token = localStorage.getItem('auth');
 
     return axios.create({
-        header: {
-            Authorization: token
+        headers: {
+            authorization: token
         },
-        baseURL: process.env.BASE_URL
+        baseURL: process.env.REACT_APP_BASE_URL
     })
 }
