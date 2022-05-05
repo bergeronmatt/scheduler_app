@@ -10,8 +10,6 @@ export default function MyCalendar() {
 
   console.log('base url: ', process.env.REACT_APP_BASE_URL);
   
-  const token = localStorage.getItem('auth')
-
   const [runData, setRunData] = useState([])
 
   const getData = async () => {
@@ -22,11 +20,8 @@ export default function MyCalendar() {
   }
 
   const addAppointment = (e) => {
-    // console.log(e.appointmentData);
 
     const {allDay, description, endDate, startDate, text} = e.appointmentData;
-
-    // console.log({allDay, description, endDate, startDate, text})
 
     axiosWithAuth().post('runs/add_run', {allDay, description, endDate, startDate, text})
 
@@ -34,18 +29,12 @@ export default function MyCalendar() {
 
   const updateAppointment = (e) => {
 
-    // console.log('Update: ', e.appointmentData)
-
     const {id, allDay, description, endDate, startDate, text} = e.appointmentData;
     axiosWithAuth().put(`runs/update/${id}`, {allDay, description, endDate, startDate, text})
 
   }
 
   const deleteAppointment = (e) => {
-
-    // console.log(e.appointmentData);
-
-    const token = localStorage.getItem('auth')
 
     const {id} = e.appointmentData;
 

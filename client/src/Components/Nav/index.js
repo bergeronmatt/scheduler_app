@@ -25,12 +25,10 @@ export default function Nav() {
   function verifyUser(token) {
     axios.get('http://localhost:8080/api/validate', {headers: {Authorization: token}})
       .then(res => {
-        // console.log('Validate User Response: ', res)
         if(res.status !== 200) {
           console.error();
           return;
         }
-        // console.log('Access Granted')
         setAllowed(true)
       })
   }
