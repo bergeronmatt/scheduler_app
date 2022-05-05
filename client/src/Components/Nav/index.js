@@ -43,13 +43,6 @@ export default function Nav() {
   return (
     <div className='wrapper'>
       <BrowserRouter>
-<<<<<<< HEAD
-=======
-{/* 
-        <Link to='/'>Login</Link>
-        <Link to='/calendar'>Calendar</Link> */}
-
->>>>>>> 626ccf7a38847a1b05024cb13c1d7b7a42d0ca12
         <Routes>
           <Route path='/' element={<Login allowed={allowed} />}/>
           <Route path='/calendar' element={
