@@ -1,6 +1,8 @@
 // set up express
 const express = require('express');
-const jwt = require('jsonwebtoken');
+
+// middelware to authenticate requests
+const authenticateJWT = require('./authenticateJWT')
 
 // import helper functions
 const Auth = require('./authModels')
@@ -34,30 +36,6 @@ Router.post('/auth', (req, res) => {
         res.sendStatus(500)
     }
 })
-
-// middleware to handle Authentication Headers
-const authenticateJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if(!authHeader){
-        // res.status(401).json({message: 'Invalid authentication.'})
-        res.sendStatus(401)
-        return
-    }
-    try {
-        jwt.verify(authHeader, process.env.JWT_SECRET, (err) => {
-            if(err){
-                // res.status(401).json({message: 'Invalid authorization token.'})
-                res.sendStatus(401)
-                return;
-            }
-            // console.log('Valid token');
-            next();
-        })
-    } catch(err) {
-        // console.log('Could not authenticate the token')
-        console.error(err)
-    }
-}
 
 Router.get('/validate', authenticateJWT,(req, res) => {
     
