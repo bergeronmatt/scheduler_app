@@ -1,36 +1,12 @@
 // import modules and packages
 const express = require('express');
 const Runs = require('./appointmentModel');
-const jwt = require('jsonwebtoken');
+
+// middelware to authenticate requests
+const authenticateJWT = require('../auth/authenticateJWT')
 
 // set up Router object
 const Router = express.Router();
-
-// authentication middelware
-const authenticateJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    // console.log('token: ', authHeader)
-    if(!authHeader){
-        // res.status(401).json({message: 'Invalid authentication.'})
-        res.sendStatus(401)
-        return
-    }
-    try {
-        jwt.verify(authHeader, process.env.JWT_SECRET, (err) => {
-            if(err){
-                // res.status(401).json({message: 'Invalid authorization token.'})
-                res.sendStatus(401)
-                return;
-            }
-            // console.log('Valid token');
-            next();
-        })
-    } catch(err) {
-        // console.log('Could not authenticate the token')
-        console.error(err)
-        return
-    }
-}
 
 // Get the entire list of currently Scheduled Runs
 Router.get('/list', authenticateJWT, (req, res) => {
