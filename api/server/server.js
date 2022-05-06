@@ -25,10 +25,12 @@ server.get('/api', (req, res) => {
 // import Router Modules
 const authRouter = require('./Router/auth/authRouter');
 const runsRouter = require('./Router/appointments/appointmentRouter');
+const userRouter = require('./Router/users/userRouter');
 
 // endpoints
 server.use('/api', authRouter);
 server.use('/api/runs', runsRouter);
+server.use('/api/users', userRouter);
 
 
 // export the server to index.js

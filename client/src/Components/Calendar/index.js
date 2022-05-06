@@ -4,7 +4,7 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 const currentDate = Date.now();
 
-const views = ['day', 'week', 'month'];
+const views = [""];
 
 export default function MyCalendar() {
 
@@ -49,20 +49,40 @@ export default function MyCalendar() {
   }, [])
 
   return (
-    <div>
+    
+      // <Scheduler
+      // timeZone="America/Los_Angeles"
+      // dataSource={runData}
+      // views={views}
+      // defaultCurrentView="week"
+      // defaultCurrentDate={currentDate}
+      // height={600}
+      // startDayHour={6}
+      // firstDayOfWeek={1}
+      // onAppointmentAdded={addAppointment}
+      // onAppointmentDeleted={deleteAppointment}
+      // onAppointmentUpdated={updateAppointment}
+      // style={{
+      //   height: "100%"
+      // }}
+      // />      
+  
       <Scheduler
-      timeZone="America/Los_Angeles"
-      dataSource={runData}
-      views={views}
-      defaultCurrentView="week"
-      defaultCurrentDate={currentDate}
-      height={600}
-      startDayHour={9}
-      firstDayOfWeek={1}
-      onAppointmentAdded={addAppointment}
-      onAppointmentDeleted={deleteAppointment}
-      onAppointmentUpdated={updateAppointment}
-      />      
-    </div>
+          timeZone="America/Los_Angeles"
+          dataSource={runData}
+          views={views} 
+          defaultCurrentView="month"
+          defaultCurrentDate={currentDate}
+          height={580}
+          cellDuration={60}
+          firstDayOfWeek={0}
+          startDayHour={8}
+          endDayHour={20}
+          onAppointmentAdded={addAppointment}
+          onAppointmentDeleted={deleteAppointment}
+          onAppointmentUpdated={updateAppointment} 
+          maxAppointmentsPerCell='unlimited'
+      />
+
   )
 }

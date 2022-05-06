@@ -2,6 +2,7 @@ import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { axiosWithAuth } from '../../utils/axiosWithAuth'
 
 export const LoginForm = (props) => {
 
@@ -18,7 +19,7 @@ export const LoginForm = (props) => {
 
     const auth = async (email, password) => {
         try {
-            await axios.post('http://localhost:8080/api/auth', {email: email, password: password})
+            await axiosWithAuth().post('auth', {email: email, password: password})
                 .then(res => {
                     const {token} = res.data;
                     localStorage.setItem('auth', token);
@@ -53,7 +54,6 @@ export const LoginForm = (props) => {
                 auth(email, password)
                 loginAlert()
                 setSubmitting(false);
-                // window.location.reload();
             }}
         >
             {({isSubmitting}) => (

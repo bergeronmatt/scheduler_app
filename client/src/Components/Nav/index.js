@@ -48,7 +48,7 @@ export default function Nav() {
               redirectPath="/"
               isAllowed={allowed}
             >
-              <div style={{width: "90%", margin: 'auto'}}>
+              <div style={{width: "100%", margin: '0', height: '850px', padding: '0'}}>
                 <Calendar />
               </div>
             </ProtectedRoute>

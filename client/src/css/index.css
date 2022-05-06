@@ -2,6 +2,7 @@
   text-align: center;
   background: #e6e6e6;
   background: linear-gradient(180deg, #e6e6e6 16%, #ffffff 100%);
+  height: 100%;
 }
 .App-logo {
   height: 40vmin;
@@ -32,6 +33,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+.dx-scheduler-appointment-content-details {
+  display: none;
+}
+.dx-scheduler-appointment {
+  max-height: 30px;
+}
+.dx-scheduler-date-table-cell .dx-scheduler-cell-sizes-vertical {
+  max-height: 500px;
+}
+.dx-scheduler {
+  height: 900px;
+}
+.dx-scheduler-date-time-indicator {
+  display: none;
+}
+.dx-scheduler-container {
+  height: 850px;
+}
+.dx-scheduler-date-table-cell,
+.dx-scheduler-cell-sizes-vertical,
+.dx-scheduler-date-table-row {
+  height: 185px;
 }
 .dx-scheduler-work-space-week .dx-scheduler-header-panel-cell,
 .dx-scheduler-work-space-work-week .dx-scheduler-header-panel-cell {
