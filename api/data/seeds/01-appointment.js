@@ -15,5 +15,6 @@ exports.seed = function(knex) {
       description: "This is seed data to help the initial run of the database. You can delete this appointment.",
       allDay: false,
     },
+    
   ])
-};
+}
