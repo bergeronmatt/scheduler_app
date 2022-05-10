@@ -12,12 +12,16 @@ export default function MyCalendar() {
   
   const [runData, setRunData] = useState([])
 
+  
+
   const getData = async () => {
     await axiosWithAuth().get('runs/list')
     .then(res => {
       setRunData(res.data.Runs)
     })
   }
+
+  console.log('runData: ', runData);
 
   const addAppointment = (e) => {
 
