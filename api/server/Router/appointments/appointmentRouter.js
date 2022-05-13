@@ -3,13 +3,13 @@ const express = require('express');
 const Runs = require('./appointmentModel');
 
 // middelware to authenticate requests
-const authenticateJWT = require('../auth/authenticateJWT')
+// const authenticateJWT = require('../auth/authenticateJWT')
 
 // set up Router object
 const Router = express.Router();
 
 // Get the entire list of currently Scheduled Runs
-Router.get('/list', authenticateJWT, (req, res) => {
+Router.get('/list', (req, res) => {
     Runs.getAppointments()
         .then(runs => {
             res.status(200).json({message: 'Rendering scheduled runs...', Runs: runs})
@@ -17,7 +17,7 @@ Router.get('/list', authenticateJWT, (req, res) => {
 })
 
 // Add new Run to the database
-Router.post('/add_run', authenticateJWT, (req, res) => {
+Router.post('/add_run', (req, res) => {
     const runData = req.body;
     try {
         Runs.addAppointment(runData)
@@ -29,7 +29,7 @@ Router.post('/add_run', authenticateJWT, (req, res) => {
 })
 
 // Update/Edit a Scheduled Run
-Router.put('/update/:id', authenticateJWT, (req, res) => {
+Router.put('/update/:id', (req, res) => {
 
     const {id} = req.params;
     const runData = req.body;
@@ -45,7 +45,7 @@ Router.put('/update/:id', authenticateJWT, (req, res) => {
 })
 
 // Delete a Scheduled Run
-Router.delete('/:id', authenticateJWT, (req, res) => {
+Router.delete('/:id', (req, res) => {
     const {id} = req.params;
 
     Runs.deleteRun(id)

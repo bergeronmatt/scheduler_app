@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title:  MGE Scheduling API
+  description: API Documentation for the Mark Grey Enterprise Scheduling App.
+  version: 0.1.9
+servers:
+  - url: http://localhost:8080/api
+    description: This product will be ran locally on the client's server.
+paths:
+  /runs/list:
+    get:
+      summary: Returns a list of all appointments.
+      responses:
+        '200':  
+          description: A JSON object that contains information about the appointment
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  text:
+                    type: string
+                  startDate:
+                    type: string
+                  endDate:
+                    type: string
+                  description:
+                    type: string
+                  allDay:
+                    type: boolean
+                  color: 
+                    type: string
+  /runs/add_run:
+    post:
+      summary: Add a new run to the appointment database.
+      responses:
+        '200':  
+          description: A success message of OK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                startDate:
+                  type: string
+                endDate:
+                  type: string
+                description:
+                  type: string
+                allDay:
+                  type: boolean
+                color: 
+                  type: string
+  
+
+  /runs/update/{id}:
+    put:
+      summary: Update an existing appointment.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the appointment to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                startDate:
+                  type: string
+                endDate:
+                  type: string
+                description:
+                  type: string
+                allDay:
+                  type: boolean
+                color: 
+                  type: string
+      responses:
+        '200':  
+          description: Success Message
+
+  /runs/{id}:
+    delete:
+      summary: Delete an appointment.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the appointment to update
+      responses:
+        '200':  
+          description: Success Message

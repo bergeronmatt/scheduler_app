@@ -9,6 +9,8 @@ Router.get('/', authenticateJWT, (req, res) => {
     User.getUsers()
         .then(() => {
             res.sendStatus(200)
+        }).catch(err => {
+            res.sendStatus(400)
         })
 })
 

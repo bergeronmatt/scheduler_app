@@ -2,6 +2,9 @@
 const express = require('express');
 const server = express()
 const compression = require('compression')
+const YAML = require('yamljs');
+const path = require('path')
+const swagger_path = path.resolve(__dirname, '../swagger.yaml');
 
 // set up and require cross-origin policy ath
 // start of the api
@@ -12,6 +15,9 @@ const corsOptions = {
 
 server.use(cors(corsOptions))
 server.use(compression())
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = YAML.load(swagger_path);
 
 // implement dependencies for the server
 server.use(express.json())
@@ -31,6 +37,8 @@ const userRouter = require('./Router/users/userRouter');
 server.use('/api', authRouter);
 server.use('/api/runs', runsRouter);
 server.use('/api/users', userRouter);
+server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
 
 
 // export the server to index.js
