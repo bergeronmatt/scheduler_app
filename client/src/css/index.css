@@ -75,3 +75,6 @@
   align-items: center;
   justify-content: center;
 }
+.dx-scheduler-date-table-row {
+  height: 180px;
+}
