@@ -46,7 +46,10 @@ export default function MyCalendar() {
   };
 
   const updateAppointment = (e) => {
-    const { id, allDay, description, endDate, startDate, text } =
+
+    console.log('e: ', e)
+
+    const { id, allDay, description, endDate, startDate, text, status } =
       e.appointmentData;
     axiosWithAuth().put(`runs/update/${id}`, {
       allDay,
@@ -54,6 +57,7 @@ export default function MyCalendar() {
       endDate,
       startDate,
       text,
+      status
     });
   };
 

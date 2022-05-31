@@ -11,6 +11,7 @@ exports.up = function(knex) {
         t.dateTime("endDate");
         t.string('description');
         t.boolean('allDay');
+        t.boolean('status');
     })
 };
 
