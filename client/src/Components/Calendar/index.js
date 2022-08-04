@@ -7,7 +7,6 @@ const currentDate = Date.now();
 const views = [''];
 
 export default function MyCalendar() {
-  console.log('base url: ', process.env.REACT_APP_BASE_URL);
 
   const [runData, setRunData] = useState([]);
   const groups = ['status'];
@@ -30,10 +29,11 @@ export default function MyCalendar() {
       });
   };
 
-  console.log('runData: ', runData);
-
   const addAppointment = (e) => {
-    const { allDay, description, endDate, startDate, text } =
+
+    console.log('Add Appointment Data: ', e)
+
+    const { allDay, description, endDate, startDate, text, status } =
       e.appointmentData;
 
     axiosWithAuth().post('runs/add_run', {
@@ -42,12 +42,11 @@ export default function MyCalendar() {
       endDate,
       startDate,
       text,
+      status
     });
   };
 
   const updateAppointment = (e) => {
-
-    console.log('e: ', e)
 
     const { id, allDay, description, endDate, startDate, text, status } =
       e.appointmentData;

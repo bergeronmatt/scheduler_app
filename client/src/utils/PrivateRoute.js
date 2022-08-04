@@ -7,9 +7,9 @@ function PrivateRoute({ component: Component, ...rest }) {
     var verified = false
     let token = window.localStorage.getItem('auth')
 
-    console.log('window: ', window.location.pathname)
+    // console.log('window: ', window.location.pathname)
 
-    console.log('token: ', token)
+    // console.log('token: ', token)
 
 
     if (!token) {
@@ -25,9 +25,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         verified = true
     }
 
-
-
-    console.log('auth check: ', verified)
+    // console.log('auth check: ', verified)
 
     return (
         <Route

@@ -4,7 +4,6 @@ require('dotenv').config()
 // import the server module
 const app = require('./server/server.js')
 
-
 // set up port object
 const port = process.env.PORT || 8080;
 
